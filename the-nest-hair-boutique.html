@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Nest Hair Boutique | Luxury Hair Salon in Cavan</title>
+<meta name="description" content="Luxury hair styling and colour in Cavan. Balayage, cuts, bridal styling and more at The Nest Hair Boutique, 4 Abbey St, Cavan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪺%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['Montserrat','system-ui','sans-serif'] },
+  colors: { cream:'#faf9f6', sand:'#efe8dc', sand2:'#e2d6c3', ink:'#1a1a1a', rose:'#b9776e', gold:'#b08d57' }
+}}}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background:#faf9f6; color:#1a1a1a; font-family:'Montserrat',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  .view { display:none; }
+  .view.active { display:block; animation: fade .45s ease both; }
+  @keyframes fade { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border-radius:9999px; padding:.8rem 1.6rem; font-weight:500; font-size:.9rem; letter-spacing:.02em; transition:all .25s; cursor:pointer; }
+  .btn-dark { background:#1a1a1a; color:#faf9f6; } .btn-dark:hover { background:#b9776e; }
+  .btn-line { border:1px solid #1a1a1a; } .btn-line:hover { background:#1a1a1a; color:#faf9f6; }
+  .card { background:#fff; border:1px solid #e9e2d4; border-radius:1.5rem; }
+  .gold-text { background:linear-gradient(120deg,#b08d57,#c98f86); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .opt { border:1px solid #e2d6c3; border-radius:1rem; background:#fff; padding:1rem 1.1rem; text-align:left; transition:all .2s; cursor:pointer; }
+  .opt:hover { border-color:#b9776e; }
+  .opt.sel { border-color:#1a1a1a; background:#1a1a1a; color:#faf9f6; }
+  .opt:disabled { opacity:.35; cursor:not-allowed; text-decoration:line-through; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid #b9776e; outline-offset:3px; }
+  @media (prefers-reduced-motion: reduce) { .view.active { animation:none; } html { scroll-behavior:auto; } }
+  .ring-bg { position:absolute; border:1px solid #e2d6c3; border-radius:9999px; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-sand2/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 lg:h-20 flex items-center gap-3">
+    <button id="backBtn" onclick="goBack()" class="hidden items-center gap-1 text-sm font-medium rounded-full px-3 py-2 hover:bg-sand transition" aria-label="Go back">← Back</button>
+    <a href="#" onclick="nav('home',true);return false" class="font-light text-lg sm:text-xl tracking-[.18em] mr-auto lg:mr-0">THE NEST <span class="font-semibold gold-text">HAIR BOUTIQUE</span></a>
+    <nav class="hidden lg:flex items-center gap-8 mx-auto text-sm" aria-label="Main">
+      <a class="navlink hover:text-rose transition" data-p="home" href="#" onclick="nav('home',true);return false">Home</a>
+      <a class="navlink hover:text-rose transition" data-p="services" href="#" onclick="nav('services',true);return false">Services</a>
+      <a class="navlink hover:text-rose transition" data-p="team" href="#" onclick="nav('team',true);return false">Team</a>
+      <a class="navlink hover:text-rose transition" data-p="booking" href="#" onclick="nav('booking',true);return false">Booking</a>
+      <a class="navlink hover:text-rose transition" data-p="reviews" href="#" onclick="nav('reviews',true);return false">Reviews</a>
+      <a class="navlink hover:text-rose transition" data-p="contact" href="#" onclick="nav('contact',true);return false">Contact</a>
+    </nav>
+    <button onclick="startBooking()" class="btn btn-dark !py-2.5 !px-5">Book Now</button>
+    <button id="burger" class="lg:hidden p-2 rounded-full hover:bg-sand" aria-label="Menu" aria-expanded="false" onclick="toggleMenu()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <nav id="mobileMenu" class="hidden lg:hidden border-t border-sand2/60 bg-cream px-6 py-3" aria-label="Mobile">
+    <div class="flex flex-col">
+      <a class="py-3 border-b border-sand" href="#" onclick="nav('home',true);return false">Home</a>
+      <a class="py-3 border-b border-sand" href="#" onclick="nav('services',true);return false">Services</a>
+      <a class="py-3 border-b border-sand" href="#" onclick="nav('team',true);return false">Team</a>
+      <a class="py-3 border-b border-sand" href="#" onclick="nav('booking',true);return false">Booking</a>
+      <a class="py-3 border-b border-sand" href="#" onclick="nav('reviews',true);return false">Reviews &amp; Hours</a>
+      <a class="py-3" href="#" onclick="nav('contact',true);return false">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="flex-1">
+
+<!-- HOME -->
+<section id="home" class="view active">
+  <div class="relative overflow-hidden">
+    <div class="ring-bg w-[520px] h-[520px] -right-40 -top-24 hidden sm:block"></div>
+    <div class="ring-bg w-[380px] h-[380px] -right-20 -top-4 hidden sm:block"></div>
+    <div class="ring-bg w-[240px] h-[240px] right-0 top-16 hidden sm:block bg-sand/60"></div>
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-20 lg:pt-28 lg:pb-32 relative">
+      <p class="text-sm text-rose font-medium mb-6">Abbey Street, Cavan</p>
+      <h1 class="font-light text-[2.6rem] leading-[1.08] sm:text-6xl lg:text-7xl max-w-3xl tracking-tight">Luxury Hair Styling &amp; Color in <span class="font-semibold">Cavan</span></h1>
+      <p class="mt-7 max-w-xl text-lg text-ink/70 leading-relaxed font-light">A calm, light-filled boutique where every cut, colour and finish is tailored to you. Our stylists take the time to listen, then craft hair you feel wonderful in.</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <button class="btn btn-dark" onclick="startBooking()">Book an appointment</button>
+        <button class="btn btn-line" onclick="nav('services',true)">View services &amp; prices</button>
+      </div>
+      <div class="mt-14 grid grid-cols-3 max-w-xl gap-4">
+        <div><p class="text-3xl font-light">4.8<span class="text-gold">★</span></p><p class="text-xs text-ink/60 mt-1">Rated by local clients</p></div>
+        <div><p class="text-3xl font-light">4</p><p class="text-xs text-ink/60 mt-1">Expert stylists</p></div>
+        <div><p class="text-3xl font-light">Cavan</p><p class="text-xs text-ink/60 mt-1">Abbey Street</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-sand/60">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <button onclick="nav('services',true)" class="card p-6 text-left hover:border-rose transition"><p class="font-medium">Services &amp; pricing</p><p class="text-sm text-ink/60 mt-2">Colour, cuts, bridal and more.</p></button>
+      <button onclick="nav('team',true)" class="card p-6 text-left hover:border-rose transition"><p class="font-medium">Meet the team</p><p class="text-sm text-ink/60 mt-2">Aimee, Sue, Alison and Fidelma.</p></button>
+      <button onclick="nav('reviews',true)" class="card p-6 text-left hover:border-rose transition"><p class="font-medium">Reviews &amp; hours</p><p class="text-sm text-ink/60 mt-2">What clients say and when we're open.</p></button>
+      <a href="tel:+353494380399" class="card p-6 text-left hover:border-rose transition block"><p class="font-medium">Call (049) 438 0399</p><p class="text-sm text-ink/60 mt-2">Speak to the salon directly.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="view">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-14 lg:py-20">
+    <h2 class="text-4xl lg:text-5xl font-light tracking-tight">Services &amp; pricing</h2>
+    <p class="mt-4 text-ink/70 max-w-xl font-light">Choose a treatment to start booking. Final prices depend on hair length and thickness, confirmed at your consultation.</p>
+    <div id="svcList" class="mt-10 grid gap-4 md:grid-cols-2"></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="view">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 lg:py-20">
+    <h2 class="text-4xl lg:text-5xl font-light tracking-tight">Meet the team</h2>
+    <p class="mt-4 text-ink/70 max-w-xl font-light">Four stylists, one standard: hair that looks beautiful and is easy to live with.</p>
+    <div id="teamList" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="view">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8 py-12 lg:py-20">
+    <h2 class="text-4xl lg:text-5xl font-light tracking-tight">Book online</h2>
+    <div id="progress" class="mt-8 flex gap-2" aria-hidden="true"></div>
+    <p id="stepLabel" class="mt-3 text-sm text-ink/60"></p>
+    <div id="bookBody" class="mt-8"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="view">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 lg:py-20 grid gap-12 lg:grid-cols-5">
+    <div class="lg:col-span-3">
+      <h2 class="text-4xl lg:text-5xl font-light tracking-tight">Reviews</h2>
+      <p class="mt-4 flex items-center gap-3"><span class="text-3xl font-light">4.8</span><span class="text-gold text-xl tracking-widest">★★★★★</span><span class="text-sm text-ink/60">average rating</span></p>
+      <div class="mt-8 grid gap-4">
+        <figure class="card p-6"><div class="text-gold">★★★★★</div><blockquote class="mt-3 text-ink/80 leading-relaxed font-light">I've never had my colour done so well. The balayage is soft, natural and has grown out beautifully. I won't go anywhere else.</blockquote><figcaption class="mt-4 text-sm font-medium">Orla M., Cavan</figcaption></figure>
+        <figure class="card p-6"><div class="text-gold">★★★★★</div><blockquote class="mt-3 text-ink/80 leading-relaxed font-light">Lovely, relaxed atmosphere and a perfect cut. They really listen to what you want. Booked my next appointment before I left.</blockquote><figcaption class="mt-4 text-sm font-medium">Niamh K., Belturbet</figcaption></figure>
+        <figure class="card p-6"><div class="text-gold">★★★★★</div><blockquote class="mt-3 text-ink/80 leading-relaxed font-light">The team styled my hair for my wedding and I felt amazing all day. Calm, professional and so talented.</blockquote><figcaption class="mt-4 text-sm font-medium">Ciara D., Virginia</figcaption></figure>
+      </div>
+    </div>
+    <div class="lg:col-span-2">
+      <h2 class="text-3xl font-light tracking-tight">Opening hours</h2>
+      <div class="card mt-6 p-2">
+        <table class="w-full text-sm"><tbody id="hours"></tbody></table>
+      </div>
+      <button class="btn btn-dark mt-6 w-full" onclick="startBooking()">Book an appointment</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="view">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-14 lg:py-20">
+    <h2 class="text-4xl lg:text-5xl font-light tracking-tight">Find us</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="card p-8">
+        <p class="text-sm text-ink/60">Address</p>
+        <address class="not-italic mt-2 text-lg font-light leading-relaxed">The Nest Hair Boutique<br>4 Abbey St, Abbeyland<br>Cavan, H12 W212<br>Ireland</address>
+        <p class="text-sm text-ink/60 mt-8">Phone</p>
+        <a href="tel:+353494380399" class="mt-2 block text-2xl font-light hover:text-rose transition">(049) 438 0399</a>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="tel:+353494380399" class="btn btn-dark">Call now</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=The+Nest+Hair+Boutique+4+Abbey+St+Cavan+H12+W212" target="_blank" rel="noopener" class="btn btn-line">Get directions</a>
+        </div>
+      </div>
+      <div class="card overflow-hidden min-h-[320px]">
+        <iframe title="Map of The Nest Hair Boutique" class="w-full h-full min-h-[320px] border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=The+Nest+Hair+Boutique+4+Abbey+St+Cavan+H12+W212&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-ink text-cream/80 mt-8">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12 grid gap-8 md:grid-cols-3 items-start">
+    <div>
+      <p class="tracking-[.18em] text-cream">THE NEST HAIR BOUTIQUE</p>
+      <p class="mt-3 text-sm font-light">Luxury hair styling &amp; colour in Cavan.</p>
+    </div>
+    <address class="not-italic text-sm font-light leading-relaxed">4 Abbey St, Abbeyland<br>Cavan, H12 W212<br><a href="tel:+353494380399" class="hover:text-white underline underline-offset-4">(049) 438 0399</a></address>
+    <div class="flex gap-3 md:justify-end">
+      <a href="https://www.instagram.com/thenesthair" target="_blank" rel="noopener noreferrer" aria-label="The Nest on Instagram" class="w-11 h-11 rounded-full border border-cream/30 grid place-items-center hover:bg-rose hover:border-rose transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/search/top?q=The%20Nest%20Hair%20Boutique%20Cavan" target="_blank" rel="noopener noreferrer" aria-label="The Nest on Facebook" class="w-11 h-11 rounded-full border border-cream/30 grid place-items-center hover:bg-rose hover:border-rose transition">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="border-t border-cream/10 text-center text-xs py-5 font-light">© <span id="yr"></span> The Nest Hair Boutique. All rights reserved.</div>
+</footer>
+
+<script>
+const SERVICES = [
+  { id:'balayage', name:'Balayage & Highlights', price:'from €120', mins:180, desc:'Hand-painted, sun-soft colour with a toner and finish.' },
+  { id:'cut', name:'Full Hair Cut & Blowdry', price:'€45', mins:60, desc:'Consultation, wash, precision cut and styled blowdry.' },
+  { id:'bridal', name:'Bridal Styling', price:'from €85', mins:90, desc:'Trial and wedding-day styling for you and your party.' },
+  { id:'tint', name:'Tint & Root Touch-up', price:'from €55', mins:75, desc:'Full root coverage with a gloss and blowdry.' },
+  { id:'treat', name:'Conditioning Treatment', price:'from €30', mins:30, desc:'Deep repair and shine, added to any service.' },
+  { id:'updo', name:'Occasion Styling', price:'from €50', mins:60, desc:'Updos, curls and glamorous finishes for any event.' }
+];
+const TEAM = [
+  { id:'Aimee', role:'Colour specialist', bio:'Soft blondes, lived-in colour and glossy brunettes.' },
+  { id:'Sue', role:'Senior stylist', bio:'Precision cutting and easy, wearable shapes.' },
+  { id:'Alison', role:'Bridal & occasion stylist', bio:'Romantic updos, waves and wedding-day calm.' },
+  { id:'Fidelma', role:'Stylist', bio:'Tints, root work and healthy, polished finishes.' }
+];
+const HOURS = [['Monday','Closed'],['Tuesday','9:00 – 17:30'],['Wednesday','9:00 – 17:30'],['Thursday','9:00 – 20:00'],['Friday','9:00 – 18:00'],['Saturday','9:00 – 17:00'],['Sunday','Closed']];
+const OPEN = { 2:[9,17.5], 3:[9,17.5], 4:[9,20], 5:[9,18], 6:[9,17] };
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dur = m => m >= 60 ? (Math.floor(m/60) + ' hr' + (m%60 ? ' ' + m%60 + ' min' : '')) : m + ' min';
+
+/* ---------- Router with history stack ---------- */
+let stack = ['home'];
+function show(p) {
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === p));
+  document.querySelectorAll('.navlink').forEach(a => { const on = a.dataset.p === p; a.classList.toggle('text-rose', on); a.classList.toggle('font-semibold', on); });
+  $('#backBtn').classList.toggle('hidden', stack.length < 2);
+  $('#backBtn').classList.toggle('inline-flex', stack.length >= 2);
+  $('#mobileMenu').classList.add('hidden'); $('#burger').setAttribute('aria-expanded','false');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  document.title = (p === 'home' ? '' : p[0].toUpperCase() + p.slice(1) + ' | ') + 'The Nest Hair Boutique';
+}
+function nav(p, push) {
+  if (p === 'home' && push) stack = ['home'];
+  else if (stack[stack.length-1] !== p) stack.push(p);
+  show(p);
+}
+function goBack() { if (stack.length > 1) { stack.pop(); show(stack[stack.length-1]); } }
+function toggleMenu() { const m = $('#mobileMenu'); const h = m.classList.toggle('hidden'); $('#burger').setAttribute('aria-expanded', String(!h)); }
+
+/* ---------- Static renders ---------- */
+$('#svcList').innerHTML = SERVICES.map(s => `
+  <button onclick="pickService('${s.id}')" class="card p-6 text-left hover:border-rose hover:shadow-lg hover:shadow-sand2/40 transition group">
+    <div class="flex justify-between gap-4 items-baseline"><h3 class="text-lg font-medium">${s.name}</h3><span class="text-gold font-medium whitespace-nowrap">${s.price}</span></div>
+    <p class="mt-2 text-sm text-ink/65 font-light">${s.desc}</p>
+    <p class="mt-4 text-xs text-ink/50 flex justify-between"><span>${dur(s.mins)}</span><span class="group-hover:text-rose transition">Book this</span></p>
+  </button>`).join('');
+$('#teamList').innerHTML = TEAM.map(t => `
+  <article class="card p-6 text-center">
+    <div class="mx-auto w-24 h-24 rounded-full bg-sand grid place-items-center text-3xl font-light text-rose border border-sand2">${t.id[0]}</div>
+    <h3 class="mt-5 text-xl font-medium">${t.id}</h3>
+    <p class="text-sm text-gold mt-1">${t.role}</p>
+    <p class="mt-3 text-sm text-ink/65 font-light">${t.bio}</p>
+    <button onclick="pickStylist('${t.id}')" class="btn btn-line mt-5 !py-2 !px-5 !text-sm">Book with ${t.id}</button>
+  </article>`).join('');
+$('#hours').innerHTML = HOURS.map(([d,h],i) => `<tr class="${i < 6 ? 'border-b border-sand' : ''}"><td class="py-3.5 px-4">${d}</td><td class="py-3.5 px-4 text-right ${h==='Closed' ? 'text-ink/40' : 'font-medium'}">${h}</td></tr>`).join('');
+$('#yr').textContent = new Date().getFullYear();
+
+/* ---------- Booking flow ---------- */
+const STEPS = ['Service','Stylist','Date & time','Your details','Confirmed'];
+let B = { step:0, service:null, stylist:null, date:null, time:null, name:'', phone:'', ref:'' };
+function resetBooking() { B = { step:0, service:null, stylist:null, date:null, time:null, name:'', phone:'', ref:'' }; }
+function startBooking() { resetBooking(); renderBooking(); nav('booking'); }
+function pickService(id) { resetBooking(); B.service = id; B.step = 1; renderBooking(); nav('booking'); }
+function pickStylist(n) { resetBooking(); B.stylist = n; renderBooking(); nav('booking'); }
+const svc = () => SERVICES.find(s => s.id === B.service);
+
+function days() {
+  const out = []; const d = new Date(); d.setHours(0,0,0,0);
+  for (let i = 0; out.length < 14; i++) { const x = new Date(d); x.setDate(d.getDate() + i + (i === 0 && new Date().getHours() >= 17 ? 1 : 0)); if (OPEN[x.getDay()] && !out.some(o => +o === +x)) out.push(x); }
+  return out;
+}
+function slots(date) {
+  const [o,c] = OPEN[date.getDay()]; const need = svc() ? svc().mins/60 : 1; const r = [];
+  for (let t = o; t + need <= c + .01; t += .5) r.push(t);
+  return r;
+}
+const fmtT = t => { const h = Math.floor(t), m = t % 1 ? '30' : '00'; return (h > 12 ? h-12 : h) + ':' + m + (h >= 12 ? ' pm' : ' am'); };
+const fmtD = d => d.toLocaleDateString('en-IE', { weekday:'long', day:'numeric', month:'long' });
+const taken = (date, t) => ((date.getDate()*7 + t*3 + (B.stylist ? B.stylist.length : 2)) % 5) === 0;
+
+function renderBooking() {
+  $('#progress').innerHTML = STEPS.map((_, i) => `<span class="h-1 flex-1 rounded-full ${i <= B.step ? 'bg-rose' : 'bg-sand2'}"></span>`).join('');
+  $('#stepLabel').textContent = B.step < 4 ? `Step ${B.step+1} of 5: ${STEPS[B.step]}` : 'Step 5 of 5: Confirmed';
+  const el = $('#bookBody'); let h = '';
+  const back = B.step > 0 && B.step < 4 ? `<button class="btn btn-line mt-8" onclick="B.step--;renderBooking()">Previous step</button>` : '';
+  if (B.step === 0) {
+    h = `<div class="grid gap-3">${SERVICES.map(s => `<button class="opt ${B.service===s.id?'sel':''}" onclick="B.service='${s.id}';B.step=1;renderBooking()"><span class="flex justify-between gap-4"><span class="font-medium">${s.name}</span><span>${s.price}</span></span><span class="block text-sm opacity-70 mt-1">${dur(s.mins)}</span></button>`).join('')}</div>`;
+  } else if (B.step === 1) {
+    h = `<div class="grid gap-3 sm:grid-cols-2">
+      <button class="opt ${B.stylist==='Any available'?'sel':''}" onclick="B.stylist='Any available';B.step=2;renderBooking()"><span class="font-medium">Any available</span><span class="block text-sm opacity-70 mt-1">First free appointment</span></button>
+      ${TEAM.map(t => `<button class="opt ${B.stylist===t.id?'sel':''}" onclick="B.stylist='${t.id}';B.step=2;renderBooking()"><span class="font-medium">${t.id}</span><span class="block text-sm opacity-70 mt-1">${t.role}</span></button>`).join('')}</div>${back}`;
+  } else if (B.step === 2) {
+    const ds = days();
+    h = `<p class="text-sm font-medium mb-3">Choose a day</p><div class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">${ds.map((d,i) => `<button class="opt shrink-0 !text-center !px-4 min-w-[76px] ${B.date && +B.date===+d?'sel':''}" onclick="B.date=days()[${i}];B.time=null;renderBooking()"><span class="block text-xs opacity-70">${d.toLocaleDateString('en-IE',{weekday:'short'})}</span><span class="block text-xl font-light">${d.getDate()}</span><span class="block text-xs opacity-70">${d.toLocaleDateString('en-IE',{month:'short'})}</span></button>`).join('')}</div>`;
+    if (B.date) h += `<p class="text-sm font-medium mt-8 mb-3">Choose a time</p><div class="grid grid-cols-3 sm:grid-cols-4 gap-2">${slots(B.date).map(t => `<button class="opt !text-center !py-3 text-sm ${B.time===t?'sel':''}" ${taken(B.date,t)?'disabled':''} onclick="B.time=${t};renderBooking()">${fmtT(t)}</button>`).join('')}</div>`;
+    if (B.date && B.time !== null) h += `<button class="btn btn-dark mt-8" onclick="B.step=3;renderBooking()">Continue</button>`;
+    h += back;
+  } else if (B.step === 3) {
+    h = `<form id="detForm" class="grid gap-5" novalidate>
+      <label class="block text-sm font-medium">Full name<input id="fName" value="${esc(B.name)}" autocomplete="name" class="mt-2 w-full rounded-2xl border border-sand2 bg-white px-4 py-3.5 font-light"></label>
+      <label class="block text-sm font-medium">Mobile phone<input id="fPhone" value="${esc(B.phone)}" type="tel" inputmode="tel" autocomplete="tel" placeholder="087 123 4567" class="mt-2 w-full rounded-2xl border border-sand2 bg-white px-4 py-3.5 font-light"></label>
+      <p id="fErr" class="text-sm text-rose hidden" role="alert"></p>
+      <div class="card p-5 text-sm leading-relaxed bg-sand/50"><b class="font-medium">${svc().name}</b> with ${esc(B.stylist)}<br>${fmtD(B.date)} at ${fmtT(B.time)}</div>
+      <button type="submit" class="btn btn-dark">Confirm booking</button></form>${back}`;
+  } else {
+    h = `<div class="card p-8 text-center"><div class="mx-auto w-14 h-14 rounded-full bg-rose/15 text-rose grid place-items-center text-2xl">✓</div>
+      <h3 class="mt-5 text-3xl font-light">You're booked in, ${esc(B.name.split(' ')[0])}</h3>
+      <p class="mt-2 text-sm text-ink/60">Reference ${B.ref}. We'll text ${esc(B.phone)} to confirm.</p>
+      <dl class="mt-8 text-left grid gap-3 text-sm max-w-sm mx-auto">
+        <div class="flex justify-between gap-4 border-b border-sand pb-3"><dt class="text-ink/60">Service</dt><dd class="text-right font-medium">${svc().name}</dd></div>
+        <div class="flex justify-between gap-4 border-b border-sand pb-3"><dt class="text-ink/60">Stylist</dt><dd class="font-medium">${esc(B.stylist)}</dd></div>
+        <div class="flex justify-between gap-4 border-b border-sand pb-3"><dt class="text-ink/60">When</dt><dd class="text-right font-medium">${fmtD(B.date)}, ${fmtT(B.time)}</dd></div>
+        <div class="flex justify-between gap-4 border-b border-sand pb-3"><dt class="text-ink/60">Duration</dt><dd class="font-medium">${dur(svc().mins)}</dd></div>
+        <div class="flex justify-between gap-4"><dt class="text-ink/60">Price</dt><dd class="font-medium">${svc().price}</dd></div></dl>
+      <p class="mt-6 text-xs text-ink/50">4 Abbey St, Abbeyland, Cavan, H12 W212. Need to change something? Call (049) 438 0399.</p>
+      <div class="mt-6 flex flex-wrap gap-3 justify-center"><button class="btn btn-dark" onclick="nav('home',true)">Back to home</button><button class="btn btn-line" onclick="startBooking()">Book another</button></div></div>`;
+  }
+  el.innerHTML = h;
+  const f = $('#detForm');
+  if (f) f.addEventListener('submit', e => {
+    e.preventDefault();
+    const n = $('#fName').value.trim(), p = $('#fPhone').value.trim(), digits = p.replace(/\D/g,'');
+    B.name = n; B.phone = p; const err = $('#fErr');
+    if (n.length < 2) { err.textContent = 'Enter your full name.'; err.classList.remove('hidden'); return; }
+    if (!/^[+\d\s()-]+$/.test(p) || digits.length < 9) { err.textContent = 'Enter a valid mobile number, for example 087 123 4567.'; err.classList.remove('hidden'); return; }
+    B.ref = 'NEST-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    B.step = 4; renderBooking(); window.scrollTo({ top:0, behavior:'smooth' });
+  });
+}
+renderBooking();
+</script>
+</body>
+</html>
